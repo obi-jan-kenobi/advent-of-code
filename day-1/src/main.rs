@@ -1,17 +1,26 @@
 fn captcha(numbers: &str) -> u32 {
-    let digits: Vec<u32> = numbers
+    let digits: Vec<u32> = to_digits(numbers);
+    let matches: Vec<u32> = collect_matches(digits);
+    matches.into_iter().fold(0, |acc, x| acc + x)
+}
+
+fn to_digits(numbers: &str) -> Vec<u32> {
+    numbers
         .chars()
         .map(|c| c.to_string().parse::<u32>().unwrap())
-        .collect();
+        .collect()
+}
+
+fn collect_matches(digits: Vec<u32>) -> Vec<u32> {
     let mut current = digits[digits.len() - 1];
-    let mut pairs: Vec<u32> = Vec::new();
+    let mut matches: Vec<u32> = Vec::new();
     for digit in digits.into_iter() {
         if current == digit {
-            pairs.push(digit);
+            matches.push(digit);
         }
         current = digit;
     }
-    pairs.into_iter().fold(0, |acc, x| acc + x)
+    matches
 }
 
 #[cfg(test)]
