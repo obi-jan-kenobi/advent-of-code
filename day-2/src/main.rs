@@ -1,3 +1,11 @@
+fn checksum(matrix: &str) -> u32 {
+    let mut sum = 0;
+    for row in matrix.split_terminator("\n") {
+        sum = sum + row_diff(row);
+    }
+    sum
+}
+
 fn row_diff(row: &str) -> u32 {
     let mut low = i32::max_value();
     let mut high = i32::min_value();
@@ -13,13 +21,7 @@ fn row_diff(row: &str) -> u32 {
     }
     (high - low).abs() as u32
 }
-fn checksum(matrix: &str) -> u32 {
-    let mut sum = 0;
-    for matrix in matrix.split_terminator("\n") {
-        sum = sum + row_diff(matrix);
-    }
-    sum
-}
+
 
 #[cfg(test)]
 mod tests {
