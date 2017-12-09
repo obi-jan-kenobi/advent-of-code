@@ -1,6 +1,9 @@
 fn captcha(numbers: &str) -> u32 {
     let digits: Vec<u32> = to_digits(numbers);
-    let matches: Vec<u32> = collect_matches(digits);
+    let matches: Vec<u32> = collect_matches(&digits);
+    for digit in digits.into_iter() {
+        println!("{}", digit);
+    }
     matches.into_iter().fold(0, |acc, x| acc + x)
 }
 
@@ -11,14 +14,14 @@ fn to_digits(numbers: &str) -> Vec<u32> {
         .collect()
 }
 
-fn collect_matches(digits: Vec<u32>) -> Vec<u32> {
+fn collect_matches(digits: &Vec<u32>) -> Vec<u32> {
     let mut current = digits[digits.len() - 1];
     let mut matches: Vec<u32> = Vec::new();
     for digit in digits.into_iter() {
-        if current == digit {
-            matches.push(digit);
+        if current == *digit {
+            matches.push(*digit);
         }
-        current = digit;
+        current = *digit;
     }
     matches
 }
