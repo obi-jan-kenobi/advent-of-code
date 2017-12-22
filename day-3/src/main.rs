@@ -1,22 +1,11 @@
-fn main() {
-    println!("Hello, world!");
-}
-
-struct Mem {
-    value: u32,
-    x: i32,
-    y: i32,
-}
-
-enum Direction {
-    UP,
-    RIGHT,
-    DOWN,
-    LEFT,
-}
-
-fn create_grid(size: u32) -> Vec<Mem> {
-    let dir = Direction::RIGHT;
+fn ring(val: u32) -> u32 {
+    let mut sum = 1;
+    let mut ring: u32 = 0;
+    while sum < val {
+        ring = ring + 1;
+        sum = sum + ring * 8;
+    }
+    ring
 }
 
 fn manhatten(value: u32) -> u32 {
@@ -32,5 +21,16 @@ mod tests {
         assert_eq!(3, manhatten(12));
         assert_eq!(2, manhatten(23));
         assert_eq!(31, manhatten(1024));
+    }
+    #[test]
+    fn ring_works() {
+        assert_eq!(0, ring(1));
+        assert_eq!(1, ring(2));
+        assert_eq!(1, ring(5));
+        assert_eq!(1, ring(9));
+        assert_eq!(2, ring(10));
+        assert_eq!(2, ring(12));
+        assert_eq!(2, ring(25));
+        assert_eq!(3, ring(26));
     }
 }
